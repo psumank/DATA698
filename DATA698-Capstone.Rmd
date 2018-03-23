@@ -17,9 +17,18 @@ In an effort to reduce traffic fatalities and injuries, NYC released the Vision 
 [NYC Motor Vehicle Collision](https://github.com/psumank/DATA698/raw/master/Data/NYPD_Motor_Vehicle_Collisions.zip)  
 [Vision Zero](http://www.nyc.gov/html/dot/html/about/vz_datafeeds.shtml)  
 
-```{r Data Filtering}
+```{r read data, eval=FALSE}
+nyc.collision.csv  <- read.csv("Data/NYPD_Motor_Vehicle_Collisions.csv", header=TRUE, sep=",", stringsAsFactors = FALSE, na.strings=c("NA", ""))
+nyc.trafficViolations.csv  <- read.csv("Data/Traffic_Tickets_Issued__NYC.csv", header=TRUE, sep=",", stringsAsFactors = FALSE, na.strings=c("NA", ""))
+
+df.coll <- data.frame(nyc.collision.csv)
+
+pedestrian <- df.coll[(df.coll$NUMBER.OF.CYCLIST.INJURED > 0) | (df.coll$NUMBER.OF.CYCLIST.KILLED > 0) | (df.coll$NUMBER.OF.PEDESTRIANS.INJURED > 0) | (df.coll$NUMBER.OF.PEDESTRIANS.KILLED > 0) ,]
+
+write.csv(pedestrian, file = "Data/pedestrian.csv")
 
 ```
+
 ## Data Exploration
 
 ## Data Preparation
