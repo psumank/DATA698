@@ -100,5 +100,9 @@ ENV/
 # mypy
 .mypy_cache/
 
-#R Markdown Generated PDF
+# R Markdown Generated PDF
 DATA698-Capstone.pdf
+
+# Extracted Data File. Too large to be stored on GitHub
+/Data/NYPD_Motor_Vehicle_Collisions.csv
+/Data/Traffic_Tickets_Issued__NYC.csv
