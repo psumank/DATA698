@@ -9,22 +9,23 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Introduction
+In an effort to reduce traffic fatalities and injuries, NYC released the Vision Zero Action Plan in 2014. The Vision Zero action plan included many initiatives but one of the more known initiative was reducing the citywide speed limit from 30 mph to 25 mph. How effective was reduction of the speed limit at lowering injuries and fatalities? Does reducing the speed limit actually decrease the number of motor vehicle accidents and/or traffic violations? As more traffic violations can lead to increased accidents, can we identify traffic black spots (areas with recurring traffic violations)? In this study, we would plan on applying data mining algorithms like K-means and SVD to identify clusters in the data and build forecasting models to forecast the future traffic violations at specific locations.  
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+**Dataset**  
+[NYC Traffic Tickets](https://github.com/psumank/DATA698/raw/master/Data/Traffic_Tickets_Issued__NYC.zip)  
+[NYC Motor Vehicle Collision](https://github.com/psumank/DATA698/raw/master/Data/NYPD_Motor_Vehicle_Collisions.zip)  
+[Vision Zero](http://www.nyc.gov/html/dot/html/about/vz_datafeeds.shtml)  
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r Data Filtering}
 
-```{r cars}
-summary(cars)
 ```
+## Data Exploration
 
-## Including Plots
+## Data Preparation
 
-You can also embed plots, for example:
+## Model Selection
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+## Evaluation
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Conclusion
