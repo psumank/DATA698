@@ -18,16 +18,37 @@ In an effort to reduce traffic fatalities and injuries, NYC released the Vision 
 [Vision Zero](http://www.nyc.gov/html/dot/html/about/vz_datafeeds.shtml)  
 
 ```{r read data, eval=FALSE}
-nyc.collision.csv  <- read.csv("Data/NYPD_Motor_Vehicle_Collisions.csv", header=TRUE, sep=",", stringsAsFactors = FALSE, na.strings=c("NA", ""))
-nyc.trafficViolations.csv  <- read.csv("Data/Traffic_Tickets_Issued__NYC.csv", header=TRUE, sep=",", stringsAsFactors = FALSE, na.strings=c("NA", ""))
+nyc.collision.csv  <- read.csv("Data/NYPD_Motor_Vehicle_Collisions.csv",
+                               header=TRUE, sep=",", stringsAsFactors = FALSE,
+                               na.strings=c("NA", ""))
+nyc.trafficViolations.csv  <- read.csv("Data/Traffic_Tickets_Issued__NYC.csv",
+                                       header=TRUE, sep=",", stringsAsFactors = 
+                                         FALSE, na.strings=c("NA", ""))
 
 df.coll <- data.frame(nyc.collision.csv)
 
-pedestrian <- df.coll[(df.coll$NUMBER.OF.CYCLIST.INJURED > 0) | (df.coll$NUMBER.OF.CYCLIST.KILLED > 0) | (df.coll$NUMBER.OF.PEDESTRIANS.INJURED > 0) | (df.coll$NUMBER.OF.PEDESTRIANS.KILLED > 0) ,]
+pedestrian <- df.coll[(df.coll$NUMBER.OF.CYCLIST.INJURED > 0) 
+                      | (df.coll$NUMBER.OF.CYCLIST.KILLED > 0) 
+                      | (df.coll$NUMBER.OF.PEDESTRIANS.INJURED > 0) 
+                      | (df.coll$NUMBER.OF.PEDESTRIANS.KILLED > 0) ,]
 
 write.csv(pedestrian, file = "Data/pedestrian.csv")
 
 ```
+
+```{r}
+peds <- read.csv("Data/pedestrian.csv")
+
+```
+
+Possible Tutorials
+
+Lat/Lon falls within GeoJson
+https://github.com/rgeo/rgeo-geojson/issues/11
+
+https://blog.exploratory.io/creating-geojson-out-of-shapefile-in-r-40bc0005857d
+https://andrewbtran.github.io/NICAR/2017/maps/mapping-census-data.html
+
 
 ## Data Exploration
 
