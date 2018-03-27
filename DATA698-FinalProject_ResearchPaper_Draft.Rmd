@@ -5,9 +5,7 @@ author: "Sreejaya, Vuthy and Suman"
 documentclass: article 
 geometry: margin=0.75in
 output: 
-  pdf_document:
-    number_sections: yes
-    fig_caption: true
+  word_document:
 subtitle: "CUNY SPS - DATA698.4 Capstone"
 ---
 
