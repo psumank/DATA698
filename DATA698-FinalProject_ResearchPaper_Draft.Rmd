@@ -166,6 +166,11 @@ The fatalities plot (which include all of 'NUMBER OF PERSONS KILLED','NUMBER OF 
 
 From the above plots, the fatalities appears to be slightly decreased after 2014, however no such indication in case of injuries. So, there is no clear indication if the *vision zero* is the cause for the above reduction in fatalities. We need to further evalulate the same with specific vison zero data feeds.
 
+By grouping Vehicle contributing factors into different categories we were able to find out the major contributing factors for accidents. Human factors such as Driver Distraction,Improper Driving, violation of laws are without doubt the major reason for accidents. Road conditions and vehicle deffects play only secondary roles.
+
+\ 
+
+![Contributing Factors - NYC Motor Vehicle Collision](images/factors.JPG)
 
 __NYC Traffic Violations:__ 
 
@@ -186,7 +191,7 @@ Grouping violations by Courts in NYC from traffic tickets data, we see that ther
 
 As part of our *vision zero data feeds* analysis, we will have a closer look at some specific areas and investigate if there is a change after a specific vision zero initiative.
 
-__Pedestrian Incident Analysis:__ 
+#### Pedestrian Incident Analysis:
 
 We have extracted the pedestrians and cyclists injuries and fatalities from the collision data and treated that as our pedestrian incident dataset, during the years 2012-2018.
 
@@ -196,18 +201,43 @@ Looking at the pedestrian incidents plot, its not showing a decrease in the inci
 
 We will try gathering the specific vision zero initative ( for example, *arterial slow zones* ) and analyse if there is any pattern before and after the initiative.
 
+
+\newpage
+
+
+__Arterial Slow Zone program:__
+
 The *Arterial Slow Zone program* uses a combination of a lower speed limit, signal timing changes, distinctive signs and increased enforcement to improve safety on some of New York
 City's most high-crash corridors. The slow zone geo json data is available [here](http://www.nyc.gov/html/dot/downloads/misc/arterial_slow_zones.json)
 We load the slow zone geo json data, and add a feature *SLOWZONE* to our pedestrain dataset by comparing if the incident point from the pedestrian dataset falls near the arterial slow zone or not. If the incident happend near the *SLOWZONE*, then we will mark it as 1, else 0.
 
-![Slowzone Vs Non Slowzone - Pedestrian Incidents](images/Ped_SlowZone_NonSlowZone.JPG)
+
+![Slowzone Vs Non Slowzone - Pedestrian Incidents](images/SZ_Incidents_Borough.JPG)
 
 There is clear reduction in the incidents in slow zones when compared with non-slow zone areas.
 
 Taking only slowzone areas and plotting incidents year over year produced mixed results, there was a significant reduction immediately following the vision zero initiative, however, the incidents shooted up again in the year 2017!
 
+\ 
+
 ![Slowzone - Yearly Pedestrian Incidents](images/Ped_SZ_Yearly.JPG)
 
+\ 
+
+__Speed Humps:__
+
+Speed Humps are a raised area of a roadway designed to reduce vehicle speeds. Lets load the speed hump geo json (shape) file and try to mark each of the pedestrian incident with *SPEED_HUMP* as 1 ( which represents the presence of speed hump) and 0 ( absence of speed hump) by comparing the distance between the incident point from the speed hump location.
+
+![SPEED_HUMP Vs Non SPEED_HUMP - Pedestrian Incidents](images/SpeedHump_Incidents_Borough.JPG)
+\ 
+
+Taking only SPEED HUMP locations and plotting pedestrian incidents year over year produced mixed results ( very similar to what we have seen with *slow zone* analysis), there was a significant reduction immediately following the vision zero initiative, follwed by increased incidents in the year 2017!
+
+\ 
+
+![SPEED_HUMP - Yearly Pedestrian Incidents](images/Ped_SH_Yearly.JPG)
+
+\ 
 
 \newpage
 
