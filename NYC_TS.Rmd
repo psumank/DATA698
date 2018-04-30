@@ -1,0 +1,57 @@
+---
+title: "TS_NYC"
+author: "Sreejaya, Suman and Vuthy"
+date: "April 29, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, results='hide'}
+library(xts)
+```
+
+
+```{r }
+dfAccidents = read.csv("C:/Users/test/Data/NYPD_Motor_Vehicle_Collisions.csv")
+View(dfAccidents)
+```
+
+```{r }
+df_inj_kill<- subset(dfAccidents, select=c('DATE','BOROUGH',"NUMBER.OF.PERSONS.INJURED" ,    "NUMBER.OF.PERSONS.KILLED"   ,  
+                                             "NUMBER.OF.PEDESTRIANS.INJURED" , "NUMBER.OF.PEDESTRIANS.KILLED" , "NUMBER.OF.CYCLIST.INJURED" ,
+                                            "NUMBER.OF.CYCLIST.KILLED"  ,  "NUMBER.OF.MOTORIST.INJURED"  ,  "NUMBER.OF.MOTORIST.KILLED"))
+df_inj <- subset(df_inj_kill, select = c('DATE','NUMBER.OF.PERSONS.INJURED'))
+class(df_inj)
+
+df_inj <- na.omit(df_inj)
+
+
+df_injSum <- aggregate(NUMBER.OF.PERSONS.INJURED ~ DATE, df_inj, sum) 
+```
+
+
+```{r }
+inj_ts <- xts(df_injSum[,-1], order.by=as.Date(df_injSum[,1], "%m/%d/%Y"))
+```
+
+
+```{r }
+plot(aggregate(inj_ts,FUN=mean))
+plot(inj_ts)
+abline(reg=lm(inj_ts~time(inj_ts)))
+```
+
+```{r }
+adf.test(log(inj_ts), alternative="stationary", k=0)
+
+```
+
+```{r }
+
+```
+
+
