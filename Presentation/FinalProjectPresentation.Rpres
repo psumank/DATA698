@@ -1,0 +1,258 @@
+<style>
+.reveal h1, .reveal h2, .reveal h3 {
+  word-wrap: normal;
+  -moz-hyphens: none;
+}
+.small-code pre code {
+  font-size: 1em;
+}
+.midcenter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+.footer {
+    color: black; background: #E8E8E8;
+    position: fixed; top: 90%;
+    text-align:center; width:100%;
+}
+.pinky .reveal .state-background {
+  background: #FF69B4;
+} 
+.pinky .reveal h1,
+.pinky .reveal h2,
+.pinky .reveal p {
+  color: black;
+}
+</style>
+
+========================================================
+font-family: 'Garamond'
+transition: zoom
+Traffic incidents in NYC and review of Vision Zero effectiveness
+-------------------------------------------------------
+![View](images/nycpedestrians.png)  
+Sreejaya, Vuthy and Suman  
+May, 2018  
+
+CUNY SPS - DATA 698.4 Capstone 
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.align="center")
+```
+
+
+Introduction - Accidents in NYC
+========================================================
+Today in NYC
+
+- Approximately 4,000 people are seriosly injured and over 250 are killed each year in motor vehicle accidents.
+- Being struck by a vehicle is the leading cause of injury-related death for children under 14, and the second leading cause for seniors.
+- On average, vehicles seriously injure or kill a New Yorker every two hours.
+- Pedestrians account for 56% of all New York City traffic fatalities!
+
+
+Introduction - Vision Zero
+========================================================
+- An action plan released in 2014, in an effort to reduce traffic fatalities and injuries in NYC.
+- Regard every accident as 'preventable incident' that can be systematically addressed.
+- A multifaceted approach, incorporating education, engineering, enforcement and legislation.
+- 14 different Vision Zero initiatives that are in place today: Slowzones, Speed Humps, Signal Timings, Bike Priority, Enhanced Crossing, Lead Pedestrian Interval, Left Turn Traffic Calming, Safe Streets for Seniors, Priority Corridors, Zones and Intersections
+ 
+
+<div class="footer">Foundation for ending traffic deaths and injuries on NYC streets</div>
+
+Objectives
+========================================================
+- Exploratory study / Investigation of factors associated with the traffic incidents in NYC:
+  - Who are involved in majority of traffic violations?
+  - What are the Key contributing factors to the traffic accidents?
+  - Where are the HotSpots?
+  - Which locations are more prone to accidents ?
+
+- Impact of **Vision Zero**
+  - Before and After *Vision Zero* analysis
+
+- Time series analysis with traffic accident data
+
+
+EDA - Accidents By Year
+========================================================
+
+```{r, echo = FALSE, out.width="50%", fig.align="None"}
+by_year_images<-c("images/injuries_by_year.jpg", "images/fatalities_by_year.jpg")
+include_graphics(by_year_images)
+```
+
+<div class="footer">Fatalities appears to be slightly decreased after the year 2014, however no such indication in case of injuries!</div>
+
+
+
+EDA - Accidents By Borough
+========================================================
+
+```{r, echo = FALSE, out.width="50%", fig.align="None"}
+by_borough_images<-c("images/accidents_by_borough.jpg", "images/Fatalities_by_borough.png")
+include_graphics(by_borough_images)
+```
+
+<div class="footer">Brooklyn and Queens had more accidents that caused injuries or fatalities</div>
+
+
+EDA - Traffic Violations
+========================================================
+
+```{r, echo = FALSE, out.width="55%"}
+traffic_violations_by_court<-c("images/violations_court.JPG")
+include_graphics(traffic_violations_by_court)
+```
+
+<div class="footer">Though Manhattan had the most traffic violations, Brooklyn and Queens had more major accidents that caused injuries and/or deaths!</div>
+
+
+EDA - Traffic Violations
+========================================================
+
+```{r, echo = FALSE, out.width="100%"}
+traffic_violations_by_age<-c("images/violation_age.JPG")
+include_graphics(traffic_violations_by_age)
+```
+
+<div class="footer">Over 50% of the violations are caused by younger drivers</div>
+
+
+EDA - Contributing Factors
+========================================================
+TBD - insert graph instead of table here
+
+```{r, echo = FALSE, out.width="100%"}
+factors<-c("images/factors.JPG")
+include_graphics(factors)
+```
+
+<div class="footer">Driver Distraction, Improper Driving and Violation of laws.</div>
+
+
+
+EDA - Contributing Vehicles
+========================================================
+
+```{r, echo = FALSE, out.width="58%"}
+vby<-c("images/veh_by_year.png")
+include_graphics(vby)
+```
+
+<div class="footer">Passenger vehicles were most likely to be involved in the accidents that led to injuries or deaths.</div>
+
+
+EDA - Pedestrian Incidents
+========================================================
+
+```{r, echo = FALSE, out.width="80%"}
+pedincidents_eda<-c("images/pedestrian_incidents_summary.JPG")
+include_graphics(pedincidents_eda)
+```
+
+<div class="footer">Majority of incidents are happening towards the later part of the day, and slightly more chance on Fridays.
+October had majority of incidents.</div>
+
+
+EDA - Pedestrian Incidents in areas with SlowZone initiative
+========================================================
+
+```{r, echo = FALSE, out.width="55%"}
+pedincidents_kde<-c("images/Ped_KDE.JPG")
+include_graphics(pedincidents_kde)
+```
+
+<div class="footer">Significant reduction immediately following the vision zero initiative, however year 2017 had increase!</div>
+
+
+
+Data Prep - Augment with Vision Zero Initiatives
+========================================================
+
+```{r, echo = FALSE, out.width="38%"}
+pedincidents_kde<-c("images/dbscan_dataprep.JPG")
+include_graphics(pedincidents_kde)
+```
+
+
+Clusters - Why?
+========================================================
+
+ - In the past, not having enough spatial data was a hurdle
+ - Today, too much data is the probelm !
+ - Too many scattered points on a map can be overwhelming !
+ - Displaying on a device would be processor intensive !
+ - Solution ?
+   - Compress spatially redundant data points into a  set of representative features.
+
+<div class="footer">Identify Hotspots</div>
+
+Clustering - Review K-Means
+========================================================
+- We need to provide K, the number of clusters.
+- Place centroids $C_1 ...C_K$ at random locations.
+- Repeat until convergence: (Stop when none of the cluster assignments change)
+   - for each point $X_i$ :
+       - find nearest centroid $C_j$
+       - assign the point $X_i$ to cluster j
+   - for each cluster j = 1...K:
+       - new centroid $c_j$ = mean of all points $X_i$ assinged to cluster j in prior step
+
+<div class="footer">Minmizes variance, but not geodetic distance. Not ideal for our case.</div>
+
+
+Clustering - DBSCAN
+========================================================
+ - Human intuitive clustering method best suited for spatial data points (non-flat geometry/uneven clusters).
+ - Views clusters as areas of high density separated by areas of low density
+ - Got 2 parameters:
+   - *epsilon* , essentially decides the size of the neighborhood.
+   - *minPoints*, minimum cluster size
+ - You do not need to specify the number of clusters, it determines automatically based on the params.
+ 
+
+<div class="footer">Density-Based Spatial Clustering and Application with Noise.</div>
+
+
+HotSpots - Algorithm
+========================================================
+```{r, echo = FALSE, out.width="36%"}
+pedincidents_kde<-c("images/dbscan_hotspots.jpg")
+include_graphics(pedincidents_kde)
+```
+
+
+App - HotSpotViewer
+========================================================
+[Hotspot Viewer](https://data698ssv.shinyapps.io/HotSpotViewer/)
+
+```{r, echo = FALSE, out.width="80%"}
+HotSpotViewer<-c("images/HotSpotViewer.jpg")
+include_graphics(HotSpotViewer)
+```
+
+Time Series Analysis 
+========================================================
+TBD
+
+
+Conclusion
+========================================================
+ - Mixed results from vision zero analysis
+ - Human factors ( driver distraction, improper driving ) are major reasons for the accidents.
+ - Brooklyn and Queens had accidents resulting in more injuries / deaths.
+ - Younger drivers cause over 50% of violations.
+ - Hotspot viewer shows reduced pedestrian spots after VZ initiative. However no such indication in multi vehicle incidents.
+ - Time series analysis forecasted a gradual decrease in incidents.
+ 
+ 
+
+Future Work
+========================================================
+ - Include more incident data sets
+ - Combine with weather data.
+ - Investigate the factors (environment factors like weather) for the sudden increase of incidents in 2017.
+
