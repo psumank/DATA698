@@ -234,9 +234,83 @@ HotSpotViewer<-c("images/HotSpotViewer.jpg")
 include_graphics(HotSpotViewer)
 ```
 
-Time Series Analysis 
+Time Series Analysis - Data Prep
 ========================================================
-TBD
+
+```{r, echo = FALSE, out.width="80%"}
+dda<-c("images/DrvDistractionAccidents.png")
+include_graphics(dda)
+```
+
+ - Split the dataset - Persons injured in NYC Road Accidents before and after 2017
+ - Subset our dataset just for Brooklyn and Accidents caused by 'Driver Distraction'
+
+<div class="footer">Forecast the number of Accidents due to Driver distraction in Brooklyn using Time Series Analysis.</div>
+
+
+Time Series Analysis - EDA
+========================================================
+
+ - During data preprocessing use convert data to monthly averages
+ - Train Dataset 55, Test dataset 15
+ - Explore this time series as a data visualization
+
+```{r, echo = FALSE, out.width="60%"}
+tseda1<-c("images/TS_Explore_1.png")
+include_graphics(tseda1)
+```
+
+Time Series Analysis - ARIMA
+========================================================
+
+ - ARIMA is a model that can be fitted to time series data to better understand and predict future points in the series.
+ - ARIMA(p,d,q) model, where:
+   	- p is the number of autoregressive terms,
+   	- d is the number of non-seasonal differences needed for stationarity, and
+   	- q is the number of lagged forecast errors in the prediction equation.
+    Let y denote the dth difference of Y, which means:
+ - If d=0:  $y_t =  Y_t$
+ - If d=1:  $y_t =  Y_t - Y_{t-1}$
+ - If d=2:  $y_t =  (Y_t - Y_{t-1}) - (Y_{t-1} - Y_{t-2})  =  Y_t - 2Y_{t-1} + Y_{t-2}$	 (discrete analog of a second derivative)
+ 
+
+Time Series Analysis - Dickey-Fuller test
+========================================================
+
+ - ACF (autocorrelation function) and PACF (partial autocorrelation) plots are used to find the AR(p) and MA(q) terms.
+ 
+ - We used Dickey-Fuller test see whether the TS is Stationary or not: The test results comprise of a Test Statistic and some Critical Values for different confidence levels. If the 'Test Statistic' is less than the 'Critical Value', then the series is stationary.
+ 
+```{r, echo = FALSE, out.width="40%"}
+tsdf1<-c("images/TS_RM_SD_1.png")
+include_graphics(tsdf1)
+```
+
+
+Time Series Analysis - Eliminate trend.
+========================================================
+
+ - We used the log transformation of the series. The moving average for the last 12 values we used Pandas rolling statistics functions.
+ - To eliminate seasonality used Differencing which takes the difference with a time lag.
+ 
+```{r, echo = FALSE, out.width="30%"}
+tsdf2<-c("images/TS_RM_SD_2.png")
+include_graphics(tsdf2)
+```
+
+<div class="footer">Dickey-Fuller Test Statistic is less than the 1% critical value, thus the TS is stationary with 99% confidence.</div>
+
+
+Time Series Analysis - Model.
+========================================================
+
+ - Our model shows that there is a not much variation  in the number of accidents due to DISTRACTED DRIVING from 2017 onwards. 
+ - But in reality, there is no trend. We will continue our study with other Accident Factors also.
+
+```{r, echo = FALSE, out.width="50%"}
+tsmodel<-c("images/TS_Model.JPG")
+include_graphics(tsmodel)
+```
 
 
 Conclusion
