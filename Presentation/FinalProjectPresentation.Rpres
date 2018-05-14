@@ -28,7 +28,7 @@
 
 ========================================================
 font-family: 'Garamond'
-transition: zoom
+#transition: zoom
 Traffic incidents in NYC and review of Vision Zero effectiveness
 -------------------------------------------------------
 ![View](images/nycpedestrians.png)  
@@ -46,17 +46,17 @@ Introduction - Accidents in NYC
 ========================================================
 Today in NYC
 
-- Approximately 4,000 people are seriosly injured and over 250 are killed each year in motor vehicle accidents.
+- Approximately 4,000 people are seriously injured and over 250 are killed each year in motor vehicle accidents.
 - Being struck by a vehicle is the leading cause of injury-related death for children under 14, and the second leading cause for seniors.
 - On average, vehicles seriously injure or kill a New Yorker every two hours.
-- Pedestrians account for 56% of all New York City traffic fatalities!
+- **56%** of all NYC traffic fatalities are pedestrians, versus 11% nationwide.
 
 
 Introduction - Vision Zero
 ========================================================
 - An action plan released in 2014, in an effort to reduce traffic fatalities and injuries in NYC.
-- Regard every accident as 'preventable incident' that can be systematically addressed.
-- A multifaceted approach, incorporating education, engineering, enforcement and legislation.
+- Regard every accident as __preventable incident__ that can be systematically addressed.
+- A multifaceted approach, incorporating _education, engineering, enforcement and legislation_.
 - 14 different Vision Zero initiatives that are in place today: Slowzones, Speed Humps, Signal Timings, Bike Priority, Enhanced Crossing, Lead Pedestrian Interval, Left Turn Traffic Calming, Safe Streets for Seniors, Priority Corridors, Zones and Intersections
  
 
@@ -68,7 +68,7 @@ Objectives
   - Who are involved in majority of traffic violations?
   - What are the Key contributing factors to the traffic accidents?
   - Where are the HotSpots?
-  - Which locations are more prone to accidents ?
+  - Which boroughs had more accidents related to injuries/fatalities ?
 
 - Impact of **Vision Zero**
   - Before and After *Vision Zero* analysis
@@ -80,19 +80,20 @@ EDA - Accidents By Year
 ========================================================
 
 ```{r, echo = FALSE, out.width="50%", fig.align="None"}
-by_year_images<-c("images/injuries_by_year.jpg", "images/fatalities_by_year.jpg")
+by_year_images<-c("images/injuries_by_year.png", "images/fatalities_per_year.png")
 include_graphics(by_year_images)
 ```
+<span style="font-size: 0.60em;">_Note: Data for 2012, 2018 is incomplete_</span>
+
 
 <div class="footer">Fatalities appears to be slightly decreased after the year 2014, however no such indication in case of injuries!</div>
-
 
 
 EDA - Accidents By Borough
 ========================================================
 
-```{r, echo = FALSE, out.width="50%", fig.align="None"}
-by_borough_images<-c("images/accidents_by_borough.jpg", "images/Fatalities_by_borough.png")
+```{r, echo = FALSE, out.width="100%"}
+by_borough_images<-c("images/injuries_fatalities_by_borough.png")
 include_graphics(by_borough_images)
 ```
 
@@ -102,12 +103,13 @@ include_graphics(by_borough_images)
 EDA - Traffic Violations
 ========================================================
 
-```{r, echo = FALSE, out.width="55%"}
-traffic_violations_by_court<-c("images/violations_court.JPG")
-include_graphics(traffic_violations_by_court)
+
+```{r, echo = FALSE, out.width="60%"}
+traffic_violations_by_tvb<-c("images/TVB.png")
+include_graphics(traffic_violations_by_tvb)
 ```
 
-<div class="footer">Though Manhattan had the most traffic violations, Brooklyn and Queens had more major accidents that caused injuries and/or deaths!</div>
+<div class="footer">Manhattan and Brooklyn had more traffic violations. Decrease in violations after VZ initiative.</div>
 
 
 EDA - Traffic Violations
@@ -118,15 +120,14 @@ traffic_violations_by_age<-c("images/violation_age.JPG")
 include_graphics(traffic_violations_by_age)
 ```
 
-<div class="footer">Over 50% of the violations are caused by younger drivers</div>
+<div class="footer">Over 50% of the violations are attributed to drivers aged 35 years or below</div>
 
 
 EDA - Contributing Factors
 ========================================================
-TBD - insert graph instead of table here
 
-```{r, echo = FALSE, out.width="100%"}
-factors<-c("images/factors.JPG")
+```{r, echo = FALSE, out.width="58%"}
+factors<-c("images/contributing_factors.png")
 include_graphics(factors)
 ```
 
@@ -148,12 +149,14 @@ include_graphics(vby)
 EDA - Pedestrian Incidents
 ========================================================
 
-```{r, echo = FALSE, out.width="80%"}
+```{r, echo = FALSE, out.width="75%"}
 pedincidents_eda<-c("images/pedestrian_incidents_summary.JPG")
 include_graphics(pedincidents_eda)
 ```
+<span style="font-size: 0.60em;">_Note: Above are Kernal Density Graphs_</span>
 
-<div class="footer">Majority of incidents are happening towards the later part of the day, and slightly more chance on Fridays.
+
+<div class="footer">Majority of incidents are happening between 3 - 5pm, and slightly more chance on Fridays.
 October had majority of incidents.</div>
 
 
@@ -201,7 +204,7 @@ Clustering - Review K-Means
    - for each cluster j = 1...K:
        - new centroid $c_j$ = mean of all points $X_i$ assinged to cluster j in prior step
 
-<div class="footer">Minmizes variance, but not geodetic distance. Not ideal for our case.</div>
+<div class="footer">Minimizes variance, but not geodetic distance. Not ideal for our case.</div>
 
 
 Clustering - DBSCAN
@@ -217,7 +220,7 @@ Clustering - DBSCAN
 <div class="footer">Density-Based Spatial Clustering and Application with Noise.</div>
 
 
-HotSpots - Algorithm
+Clustering - Identify HotSpots
 ========================================================
 ```{r, echo = FALSE, out.width="36%"}
 pedincidents_kde<-c("images/dbscan_hotspots.jpg")
@@ -227,7 +230,8 @@ include_graphics(pedincidents_kde)
 
 App - HotSpotViewer
 ========================================================
-[Hotspot Viewer](https://data698ssv.shinyapps.io/HotSpotViewer/)
+
+<a href="https://data698ssv.shinyapps.io/HotSpotViewer/" target="_blank">Click here - HotSpot Viewer App</a>
 
 ```{r, echo = FALSE, out.width="80%"}
 HotSpotViewer<-c("images/HotSpotViewer.jpg")
@@ -251,14 +255,16 @@ include_graphics(dda)
 Time Series Analysis - EDA
 ========================================================
 
- - During data preprocessing use convert data to monthly averages
+ - Summarized accidents by month.
  - Train Dataset 55, Test dataset 15
  - Explore this time series as a data visualization
 
-```{r, echo = FALSE, out.width="60%"}
+```{r, echo = FALSE, out.width="55%"}
 tseda1<-c("images/TS_Explore_1.png")
 include_graphics(tseda1)
 ```
+
+<div class="footer">Noticed a dip in 2016.</div>
 
 Time Series Analysis - ARIMA
 ========================================================
@@ -277,9 +283,9 @@ Time Series Analysis - ARIMA
 Time Series Analysis - Dickey-Fuller test
 ========================================================
 
- - ACF (autocorrelation function) and PACF (partial autocorrelation) plots are used to find the AR(p) and MA(q) terms.
- 
- - We used Dickey-Fuller test see whether the TS is Stationary or not: The test results comprise of a Test Statistic and some Critical Values for different confidence levels. If the 'Test Statistic' is less than the 'Critical Value', then the series is stationary.
+  - We used Dickey-Fuller test see whether the TS is Stationary or not: The test results comprise of a Test Statistic and some Critical Values for different confidence levels. If the 'Test Statistic' is less than the 'Critical Value', then the series is stationary.
+  
+  - ACF (autocorrelation function) and PACF (partial autocorrelation) plots are used to find the AR(p) and MA(q) terms.
  
 ```{r, echo = FALSE, out.width="40%"}
 tsdf1<-c("images/TS_RM_SD_1.png")
@@ -287,11 +293,11 @@ include_graphics(tsdf1)
 ```
 
 
-Time Series Analysis - Eliminate trend.
+Time Series Analysis - Log Transformation.
 ========================================================
 
- - We used the log transformation of the series. The moving average for the last 12 values we used Pandas rolling statistics functions.
- - To eliminate seasonality used Differencing which takes the difference with a time lag.
+ - Used log transformation of the series.
+ - To eliminate seasonality used _Differencing_ which takes the difference with a time lag.
  
 ```{r, echo = FALSE, out.width="30%"}
 tsdf2<-c("images/TS_RM_SD_2.png")
@@ -304,29 +310,30 @@ include_graphics(tsdf2)
 Time Series Analysis - Model.
 ========================================================
 
- - Our model shows that there is a not much variation  in the number of accidents due to DISTRACTED DRIVING from 2017 onwards. 
- - But in reality, there is no trend. We will continue our study with other Accident Factors also.
-
-```{r, echo = FALSE, out.width="50%"}
-tsmodel<-c("images/TS_Model.JPG")
-include_graphics(tsmodel)
+ - Our model shows that there is a not much variation  in the number of accidents due to DISTRACTED DRIVING from 2017 onwards.
+ 
+```{r, echo = FALSE, out.width="65%"}
+tsmodel2<-c("images/TS_Model_2.JPG")
+include_graphics(tsmodel2)
 ```
 
 
 Conclusion
 ========================================================
- - Mixed results from vision zero analysis
+ - Mixed results from vision zero analysis.
  - Human factors ( driver distraction, improper driving ) are major reasons for the accidents.
- - Brooklyn and Queens had accidents resulting in more injuries / deaths.
- - Younger drivers cause over 50% of violations.
- - Hotspot viewer shows reduced pedestrian spots after VZ initiative. However no such indication in multi vehicle incidents.
+ - Though Manhattan had more traffic violations, Brooklyn and Queens had more accidents that resulted in injuries/deaths.
+ - Over 50% of violations are attributed to younger drivers (35 and under).
+ - Passenger vehicles were most likely to be involved in the accidents.
+ - Hotspot viewer showed reduced pedestrian spots after VZ initiative. However no such indication in multi vehicle incidents.
  - Time series analysis forecasted a gradual decrease in incidents.
  
  
 
 Future Work
 ========================================================
- - Include more incident data sets
- - Combine with weather data.
- - Investigate the factors (environment factors like weather) for the sudden increase of incidents in 2017.
+ - Include more incident data sets for hotspot analysis.
+ - Expand Time series analysis with other factors.
+ - Combine incident data with weather data and investigate the factors (environment factors like weather) for the increase of incidents in 2017.
+ - Enhance the incident data sets by imputing the location data.
 
